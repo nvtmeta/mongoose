@@ -4,7 +4,7 @@ const router = express.Router()
 const Post = require('../models/Post')
 
 // controller
-const { postuploadsingle } = require('../controller/controllers')
+const { postuploadsingle, postuploadmultiple } = require('../controller/controllers')
 
 
 
@@ -67,4 +67,5 @@ router.put('/delete/:id', async (req, res) => {
 
 
 router.post('/file', postuploadsingle)
+router.post('/files', postuploadmultiple)
 module.exports = router

@@ -5,7 +5,7 @@ const app = express()
 const methodOverride = require('method-override')
 const fileUpload = require('express-fileupload')
 const posts = require('./routes/post')
-
+const api = require('./routes/api')
 // config file upload
 app.use(fileUpload())
 
@@ -26,6 +26,7 @@ connectDB()
 
 //init routes
 app.use('/', posts)
+app.use('/v1/api', api)
 
 
 const PORT = 5000
