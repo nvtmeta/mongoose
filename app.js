@@ -6,13 +6,16 @@ const methodOverride = require('method-override')
 const fileUpload = require('express-fileupload')
 const posts = require('./routes/post')
 const api = require('./routes/api')
+const bodyParser = require('body-parser');
 // config file upload
 app.use(fileUpload())
-
 
 //config req.body       //khai bao config req.body at first to avoid undefined
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+// fix by body parser to postman put user {update users)
+app.use(bodyParser.json());
+
 
 // method override
 app.use(methodOverride('_method'))

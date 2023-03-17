@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-
+const mongoose_delete = require('mongoose-delete');
 // create model
 const customerSchema = new Schema({
     name: {
@@ -18,5 +18,8 @@ const customerSchema = new Schema({
 },
     { timestamps: true }
 )
+
+customerSchema.plugin(mongoose_delete);
+
 
 module.exports = mongoose.model('Customer', customerSchema) 
