@@ -1,25 +1,27 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 const mongoose_delete = require('mongoose-delete');
 // create model
-const customerSchema = new Schema({
+const customerSchema = new Schema(
+  {
     name: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     address: {
-        type: String,
+      type: String,
     },
     phone: String,
     email: String,
     image: String,
     description: String,
+  },
+  {
+    timestamps: true,
+  }
+);
 
-},
-    { timestamps: true }
-)
+// Override all methods
+customerSchema.plugin(mongoose_delete, { overrideMethods: 'all' });
 
-customerSchema.plugin(mongoose_delete);
-
-
-module.exports = mongoose.model('Customer', customerSchema) 
+module.exports = mongoose.model('Customer', customerSchema);
