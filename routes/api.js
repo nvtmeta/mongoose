@@ -24,16 +24,16 @@ router.delete('/customers', deleteCustomer);
 router.delete('/customers-many', deleteArrCustomer);
 
 // test params and query request
-router.get('/info', (req, res) => {
-  return res.status(200).json({
-    data: req.query,
-  });
-});
+// router.get('/info', (req, res) => {
+//   return res.status(200).json({
+//     data: req.query,
+//   });
+// });
 
-router.get('/info/:name/:address', (req, res) => {
-  return res.status(200).json({
-    data: req.params,
-  });
-});
+// router.get('/info/:name/:address', (req, res) => {
+//   return res.status(200).json({
+//     data: req.params,
+//   });
+// });
 
 module.exports = router;
