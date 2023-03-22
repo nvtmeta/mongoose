@@ -8,6 +8,12 @@ const {
   deleteCustomer,
   deleteArrCustomer,
 } = require('../controller/customerControllers');
+const {
+  taskPost,
+  taskGet,
+  taskPut,
+  taskDelete,
+} = require('../controller/taskController');
 
 // create one or many customers
 router.post('/customers', postCreateCustomer);
@@ -35,5 +41,14 @@ router.delete('/customers-many', deleteArrCustomer);
 //     data: req.params,
 //   });
 // });
+
+// task
+router.post('/tasks', taskPost);
+
+router.get('/tasks', taskGet);
+
+router.put('/tasks', taskPut);
+
+router.delete('/tasks', taskDelete);
 
 module.exports = router;
