@@ -21,7 +21,7 @@ module.exports = {
     });
   },
   taskPut: async (req, res) => {
-    let result = await taskPutSer(req.query);
+    let result = await taskPutSer(req.body);
     return res.status(200).json({
       EC: 0,
       result,
