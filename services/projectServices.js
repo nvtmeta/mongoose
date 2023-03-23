@@ -23,6 +23,12 @@ module.exports = {
         const res = await myProject.save();
         return res;
       }
+      if (data.type === 'ADD-TASKS') {
+        let myProject = await Project.findById(data.projectId).exec();
+        myProject.tasks.push(...data.taskArr);
+        const res = await myProject.save();
+        return 'add tasks';
+      }
       return null;
     } catch (error) {
       console.log(error);

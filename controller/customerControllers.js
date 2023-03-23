@@ -7,36 +7,52 @@ const {
   deleteCustomerService,
   deleteArrCustomerService,
 } = require('../services/customerService');
+const Joi = require('joi');
+
 // {key: value}
 module.exports = {
   postCreateCustomer: async (req, res) => {
     // get data
     let { name, address, phone, email, image, description } = req.body;
-    console.log(req.body);
 
-    // image:string
-    let imageUrl = '';
-    if (!req.files || Object.keys(req.files).length === 0) {
-      // do nothing
-    } else {
-      let result = await uploadSingle(req.files.image);
-      console.log(result);
-      imageUrl = result.path;
-    }
-    // deliver to services
-    let customerData = {
-      name,
-      address,
-      phone,
-      email,
-      image,
-      description,
-    };
-    let customer = await createCustomerService(customerData);
-    return res.status(200).json({
-      EC: 0,
-      data: customer,
+    // validation with Joi
+    const schema = Joi.object({
+      name: Joi.string().min(3).max(30).required(),
+      password: Joi.string().pattern(new RegExp('^[0-9]{3,8}$')),
+      email: Joi.string().email(),
+      description: Joi.string(),
+      address: Joi.string(),
+      phone: Joi.number(),
     });
+
+    const { error } = schema.validate(req.body);
+    if (error) {
+      return res.status(200).json(error);
+    } else {
+      // image:string
+      let imageUrl = '';
+      if (!req.files || Object.keys(req.files).length === 0) {
+        // do nothing
+      } else {
+        let result = await uploadSingle(req.files.image);
+        console.log(result);
+        imageUrl = result.path;
+      }
+      // deliver to services
+      let customerData = {
+        name,
+        address,
+        phone,
+        email,
+        image,
+        description,
+      };
+      let customer = await createCustomerService(customerData);
+      return res.status(200).json({
+        EC: 0,
+        data: customer,
+      });
+    }
   },
 
   postArrCustomer: async (req, res) => {
